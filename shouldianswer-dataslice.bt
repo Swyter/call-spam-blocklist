@@ -14,7 +14,7 @@
 
 char magic[4]; // MTZD (DataSlice)  // MTZF (RatingDatabase)
 byte fmt_ver; // 1
-uint update_ver;
+uint update_ver; // actDB, newDB
 
 char ww[2];
 uint eleven_zero;
@@ -22,7 +22,8 @@ uint added_item_count;
 
 struct
 {
-byte t[13];
+uint64 tlf;
+ubyte f[5];
 } item[added_item_count];
 
 uchar cp[2]; // CP
