@@ -1,0 +1,36 @@
+name: Nightly builds
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 10 * * *'
+
+jobs:
+  build-lnx:
+    name: Buildbot
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: | 
+        sudo apt install curl        \
+                         sed         \
+                         grep        \
+                         jq          \
+                         git
+
+    - name: Pack things up - Here's the real meat
+      id: pack
+      run: |
+        bash ./.generate_call_blocklist.sh
+
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name  "github-actions[bot]"
+
+        git commit blocklist.txt -m "Updated blocklist to $(date -u "+%Y-%02m-%02d %H:%M")."
+        git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
