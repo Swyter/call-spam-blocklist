@@ -26,4 +26,10 @@ byte t[13];
 char cp[2]; // CP
 uint removed_item_count;
 
-char end[4];  //MTZEND
+struct
+{
+byte t[8];//[12/2];
+} ritem[removed_item_count];
+
+
+char end[6];  //MTZEND
