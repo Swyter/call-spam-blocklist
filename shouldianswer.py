@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-2.0-or-later
+
 import struct
 import os
 import sys
@@ -106,12 +107,14 @@ def parse_data_slice(needed_magic, file_path, global_data):
 
 # --
 
-# swy: aggregate the bundled application data, each number is a regional prefix
+# swy: aggregate the bundled application data, each number suffix in each data_slice_XXXX.dat
+#      filename is a variable-length regional phone prefix :-)
 for file_path in sda_glob:
     parse_data_slice('MTZF', file_path, data); # print(cur)
     #break
 
-# swy: apply the downloaded update; hopefully the data will be fresher this way
+# swy: apply the downloaded update, this file does include phone deletion entries;
+#      unlike the bundled ones. hopefully the data will be fresher this way :-)
 parse_data_slice('MTZD', "data_slice_downloaded_update.bin", data)
 
 # swy: dump the result
