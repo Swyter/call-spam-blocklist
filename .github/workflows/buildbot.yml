@@ -28,14 +28,15 @@ jobs:
       id: pack
       run: |
         git clone -b blocklist "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" blocklist_repo && cd blocklist_repo
-        ls -lash
+        ls -lash ..
         export PATH="./../:${PATH}"; chmod +x ../shouldianswer.py;
         bash .generate_call_blocklist.sh
 
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name  "github-actions[bot]"
 
-        git commit blocklist*.txt -m "Updated blocklist to $(date -u "+%Y-%02m-%02d %H:%M")."
+        git add blocklist.txt blocklist_b.txt
+        git commit blocklist.txt blocklist_b.txt -m "Updated blocklist to $(date -u "+%Y-%02m-%02d %H:%M")."
         git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" blocklist
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
