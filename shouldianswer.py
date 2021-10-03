@@ -15,6 +15,7 @@ else:
 
 # swy: here's the real meat
 def parse_data_slice(needed_magic, file_path):
+    ret_data = {}
     with open(file_path, 'rb+') as f:
         magic = struct.unpack('4s', f.read(4))[0]
 
@@ -60,6 +61,7 @@ def parse_data_slice(needed_magic, file_path):
             ]
             
             print(tlf, positive, negative, neutral, category, category_tags[category])
+            ret_data[tlf] = (positive, negative, neutral, category, category_tags[category])
 
         cp = struct.unpack('2s', f.read(2))[0]; print(cp)
         if not cp == 'CP':
@@ -67,6 +69,13 @@ def parse_data_slice(needed_magic, file_path):
 
         removed_item_count = struct.unpack('<I', f.read(4))[0]
         print(removed_item_count)
+
+        for i in range(0, removed_item_count):
+            tlf = struct.unpack('<Q', f.read(8))[0];
+            print(i, tlf)
+            ret_data.pop(tlf, None)
+
+        return ret_data
         
 
 
