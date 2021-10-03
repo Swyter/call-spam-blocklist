@@ -29,7 +29,7 @@ jobs:
       run: |
         git clone -b blocklist "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" blocklist_repo && cd blocklist_repo
 
-        export PATH="./../:${PATH}"
+        export PATH="./../:${PATH}"; echo which shouldianswer.py; chmod +x "$(which shouldianswer.py)";
         bash .generate_call_blocklist.sh
 
         git config --local user.email "github-actions[bot]@users.noreply.github.com"

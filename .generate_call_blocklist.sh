@@ -6,7 +6,7 @@ curl -LOJ 'http://download.shouldianswer.net/download/shouldianswer_obsolete.apk
 curl --compressed -o data_slice_downloaded_update.bin.gz 'https://srv1.shouldianswer.net/srv2/get-database2?v=6&appver=11014&dbver=1381' && gunzip --force data_slice_downloaded_update.bin.gz
 
 python --version
-
+echo "$(which shouldianswer.py)"
 chmod +x "$(which shouldianswer.py)"; shouldianswer.py
 
 echo end--
