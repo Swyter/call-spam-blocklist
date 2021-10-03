@@ -28,39 +28,39 @@ uint added_item_count;
 struct
 {
     uint64 tlf;
-    ubyte positive, negative, neutral, unk_zero;
+    ubyte positive, negative, neutral, unk_zero_padding_maybe; /* swy: seems like there's an extra byte for alignment, there are three fields for each telephone number's ratings/user reports, see the Web for the SEO-friendly version of this, the app uses crowdsourcing to fill the database */
 
     /* swy: Telemarketer: 1, Silent call: 3, Scam call: 10, Unsolicited: 5, Non-profit: 8, Nuisance: 16, Robocall: 18 */
     enum <ubyte>
     {
-        cat_choose_category  =  0, /* 0-Choose category         */
-        cat_telemarketer     =  1, /* 1-Telemarketer            */
-        cat_dept_collector   =  2, /* 2-Debt collector          */
-        cat_silent_call      =  3, /* 3-Silent call             */
-        cat_nuisance_call    =  4, /* 4-Nuisance call           */
-        cat_unsolicited_call =  5, /* 5-Unsolicited call        */
-        cat_call_centre      =  6, /* 6-Call centre             */
-        cat_fax_machine      =  7, /* 7-Fax machine             */
-        cat_non_profit_org   =  8, /* 8-Non-profit Organization */
-        cat_political_call   =  9, /* 9-Political call          */
-        cat_scam_call        = 10, /* 10-Scam call              */
-        cat_prank_call       = 11, /* 11-Prank call             */
-        cat_sms              = 12, /* 12-SMS                    */
-        cat_survey           = 13, /* 13-Survey                 */
-        cat_other            = 14, /* 14-Other                  */
-        cat_finance_service  = 15, /* 15-Financial Service      */
-        cat_company          = 16, /* 16-Company                */
-        cat_service          = 17, /* 17-Service                */
-        cat_robocall         = 18, /* 18-Robocall               */
+        cat_choose_category  =  0, /*  0-Choose category         */
+        cat_telemarketer     =  1, /*  1-Telemarketer            */
+        cat_dept_collector   =  2, /*  2-Debt collector          */
+        cat_silent_call      =  3, /*  3-Silent call             */
+        cat_nuisance_call    =  4, /*  4-Nuisance call           */
+        cat_unsolicited_call =  5, /*  5-Unsolicited call        */
+        cat_call_centre      =  6, /*  6-Call centre             */
+        cat_fax_machine      =  7, /*  7-Fax machine             */
+        cat_non_profit_org   =  8, /*  8-Non-profit Organization */
+        cat_political_call   =  9, /*  9-Political call          */
+        cat_scam_call        = 10, /* 10-Scam call               */
+        cat_prank_call       = 11, /* 11-Prank call              */
+        cat_sms              = 12, /* 12-SMS                     */
+        cat_survey           = 13, /* 13-Survey                  */
+        cat_other            = 14, /* 14-Other                   */
+        cat_finance_service  = 15, /* 15-Financial Service       */
+        cat_company          = 16, /* 16-Company                 */
+        cat_service          = 17, /* 17-Service                 */
+        cat_robocall         = 18, /* 18-Robocall                */
     } category <bgcolor=cBlue>;
 
 } item[added_item_count];
 
-uchar cp[2]; /* swy: magic value: CP */
-uint removed_item_count;
+char cp[2]; /* swy: magic value: CP */
+uint deleted_item_count;
 struct
 {
-    ubyte t[8];//[12/2];
-} ritem[removed_item_count];
+    uint64 tlf;
+} deleted_item[deleted_item_count];
 
 char end[6];  /* swy: magic value: MTZEND */
