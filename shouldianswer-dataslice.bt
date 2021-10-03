@@ -23,7 +23,10 @@ uint added_item_count;
 struct
 {
 uint64 tlf;
-ubyte f[5];
+ubyte positive, negative, neutral, f[2];
+
+/* Telemarketer: 1, Silent call: 3, Scam call: 10, Unsolicited: 5, Non-profit: 8, Nuisance: 16, Robocall: 18 */
+
 } item[added_item_count];
 
 uchar cp[2]; // CP
