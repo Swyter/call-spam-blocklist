@@ -79,8 +79,8 @@ def parse_data_slice(needed_magic, file_path, global_data):
             #print(tlf, positive, negative, neutral, category, category_tags[category])
 
             # swy: keep in mind that the database also includes positive numbers, so we need to do our own filtering to black list only the bad telephone stuff,
-            #      include only those with 2 or more reports and not too many positive counter-reports. keep neutral reviews in check, too.
-            if negative > 1 and negative > positive and negative > neutral:
+            #      include only those with 1 or more reports and not too many positive counter-reports. keep neutral reviews in check, too.
+            if negative >= 1 and negative > positive and negative > neutral:
                 global_data[tlf] = (positive, negative, neutral, category, category_tags[category])
 
         cp = struct.unpack('2s', f.read(2))[0]; print(cp)
