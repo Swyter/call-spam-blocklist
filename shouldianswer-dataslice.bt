@@ -12,10 +12,12 @@
 //------------------------------------------------
 
 
-char magic[4]; //MTZD
-byte p;
-uint a,b;
-ushort c;
+char magic[4]; // MTZD (DataSlice)  // MTZF (RatingDatabase)
+byte fmt_ver; // 1
+uint update_ver;
+
+char ww[2];
+uint eleven_zero;
 uint added_item_count;
 
 struct
@@ -23,12 +25,12 @@ struct
 byte t[13];
 } item[added_item_count];
 
-char cp[2]; // CP
+uchar cp[2]; // CP
 uint removed_item_count;
 
 struct
 {
-byte t[8];//[12/2];
+ubyte t[8];//[12/2];
 } ritem[removed_item_count];
 
 
