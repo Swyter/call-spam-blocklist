@@ -17,13 +17,49 @@ else:
 def parse_data_slice(needed_magic, file_path):
     with open(file_path, 'rb+') as f:
         magic = struct.unpack('4s', f.read(4))[0]
+
         print(" [>] opening %s [%s]" % (file_path, magic))
+
         if not magic == needed_magic:
             return None
+
         print(" [&] magic value matches")
 
         f.seek(0xf)
         added_item_count = struct.unpack('<I', f.read(4))[0]; print(added_item_count)
+
+        for i in range(0, added_item_count):
+            print(i)
+            tlf = struct.unpack('<Q', f.read(8))[0];
+            positive = struct.unpack('<B', f.read(1))[0];
+            negative = struct.unpack('<B', f.read(1))[0];
+            neutral  = struct.unpack('<B', f.read(1))[0];
+            unk_zero_padding_maybe = struct.unpack('<B', f.read(1))[0];
+            category = struct.unpack('<B', f.read(1))[0];
+
+            category_tags = [
+                "cat_choose_category",
+                "cat_telemarketer",
+                "cat_debt_collector",
+                "cat_silent_call",
+                "cat_nuisance_call",
+                "cat_unsolicited_call",
+                "cat_call_centre",
+                "cat_fax_machine",
+                "cat_non_profit_org",
+                "cat_political_call",
+                "cat_scam_call",
+                "cat_prank_call",
+                "cat_sms",
+                "cat_survey",
+                "cat_other",
+                "cat_finance_service",
+                "cat_company",
+                "cat_service",
+                "cat_robocall"
+            ]
+            
+            print(tlf, positive, negative, neutral, category, category_tags[category])
 
         cp = struct.unpack('2s', f.read(2))[0]; print(cp)
         if not cp == 'CP':
