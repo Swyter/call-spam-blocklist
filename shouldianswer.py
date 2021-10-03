@@ -21,7 +21,7 @@ def parse_data_slice(needed_magic, file_path):
 
         print(" [>] opening %s [%s] " % (file_path, magic), needed_magic)
 
-        if not magic.decode('ascii') == str(needed_magic):
+        if not magic.decode('ascii') == needed_magic:
             return None
 
         print(" [&] magic value matches")
@@ -30,8 +30,8 @@ def parse_data_slice(needed_magic, file_path):
         added_item_count = struct.unpack('<I', f.read(4))[0]; print(added_item_count)
 
         for i in range(0, added_item_count):
-            print(i)
-            tlf = struct.unpack('<Q', f.read(8))[0];
+            #print(i)
+            tlf      = struct.unpack('<Q', f.read(8))[0];
             positive = struct.unpack('<B', f.read(1))[0];
             negative = struct.unpack('<B', f.read(1))[0];
             neutral  = struct.unpack('<B', f.read(1))[0];
@@ -60,11 +60,11 @@ def parse_data_slice(needed_magic, file_path):
                 "cat_robocall"
             ]
             
-            print(tlf, positive, negative, neutral, category, category_tags[category])
+            #print(tlf, positive, negative, neutral, category, category_tags[category])
             ret_data[tlf] = (positive, negative, neutral, category, category_tags[category])
 
         cp = struct.unpack('2s', f.read(2))[0]; print(cp)
-        if not cp == 'CP':
+        if not cp.decode('ascii') == 'CP':
             return None
 
         removed_item_count = struct.unpack('<I', f.read(4))[0]
@@ -72,7 +72,7 @@ def parse_data_slice(needed_magic, file_path):
 
         for i in range(0, removed_item_count):
             tlf = struct.unpack('<Q', f.read(8))[0];
-            print(i, tlf)
+            #print(i, tlf)
             ret_data.pop(tlf, None)
 
         return ret_data
