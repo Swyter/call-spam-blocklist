@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-import io
 import struct
 import os
-import collections
 import sys
 
 sda_glob = []
