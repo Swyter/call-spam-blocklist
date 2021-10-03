@@ -3,5 +3,5 @@ jq .[].normalizedPhone -r cleverdialer.json > blocklist_unsorted.txt
 sort blocklist_unsorted.txt > blocklist.txt
 
 # https://web.archive.org/web/20211003104644if_/http://download.shouldianswer.net/download/shouldianswer_obsolete.apk
-curl -o thing.bin.gz 'https://srv1.shouldianswer.net/srv2/get-database2?v=6&appver=11014&dbver=1381'
-gunzip thing.bin.gz
+curl --compressed -o dataslice.bin.gz 'https://srv1.shouldianswer.net/srv2/get-database2?v=6&appver=11014&dbver=1381'
+gunzip dataslice.bin.gz

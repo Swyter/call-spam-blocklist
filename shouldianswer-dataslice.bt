@@ -12,8 +12,18 @@
 //------------------------------------------------
 
 
-char magic[5]; //MTZD
+char magic[4]; //MTZD
+byte p;
 uint a,b;
 ushort c;
-uint d;
+uint added_item_count;
+
+struct
+{
+byte t[13];
+} item[added_item_count];
+
+char cp[2]; // CP
+uint removed_item_count;
+
 char end[4];  //MTZEND
