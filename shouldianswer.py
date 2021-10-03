@@ -74,7 +74,7 @@ def parse_data_slice(needed_magic, file_path):
             tlf = struct.unpack('<Q', f.read(8))[0];
             #print(i, tlf)
             ret_data.pop(tlf, None)
-
+        print("ret_data", ret_data)
         return ret_data
         
 
@@ -92,11 +92,11 @@ except: # swy: python 2 does not include pathlib by default, so fallback to this
         for filename in fnmatch.filter(filenames, 'data_slice_*.dat'):
             sda_glob.append(os.path.join(root, filename))
 
-data = []
+data = {}
 
 # swy: aggregate the bundled application data, each number is a regional prefix
 for file_path in sda_glob:
-    cur = parse_data_slice('MTZF', file_path)
+    cur = parse_data_slice('MTZF', file_path); # print(cur)
     if cur:
         data += cur 
 
@@ -105,6 +105,9 @@ for file_path in sda_glob:
 # swy: apply the downloaded update; hopefully the data will be fresher this way
 data_update = parse_data_slice('MTZD', "data_slice_downloaded_update.bin")
 
-
+data.update(data_update)
 # swy: dump the result
-print("\n".join(data))
+
+print(data)
+
+print("\n".join(["+" + str(elem) for i,elem in enumerate(data)]))
