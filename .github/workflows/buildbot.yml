@@ -35,7 +35,7 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name  "github-actions[bot]"
 
-        git commit blocklist.txt -m "Updated blocklist to $(date -u "+%Y-%02m-%02d %H:%M")."
+        git commit blocklist*.txt -m "Updated blocklist to $(date -u "+%Y-%02m-%02d %H:%M")."
         git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" blocklist
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
