@@ -7,6 +7,6 @@ curl --compressed -o data_slice_downloaded_update.bin.gz 'https://srv1.shouldian
 
 python --version
 
-shouldianswer.py .
+shouldianswer.py
 
 echo end--
