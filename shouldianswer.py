@@ -20,8 +20,19 @@ def parse_data_slice(needed_magic, file_path):
         print(" [>] opening %s [%s]" % (file_path, magic))
         if not magic == needed_magic:
             return None
-        #f.seek(0x54)
-        #fourc = struct.unpack('4s', f.read(4))[0];
+        print(" [&] magic value matches")
+
+        f.seek(0xf)
+        added_item_count = struct.unpack('<I', f.read(4))[0]; print(added_item_count)
+
+        cp = struct.unpack('2s', f.read(2))[0]; print(cp)
+        if not cp == 'CP':
+            return None
+
+        removed_item_count = struct.unpack('<I', f.read(4))[0]
+        print(removed_item_count)
+        
+
 
 try:
     from pathlib import Path
