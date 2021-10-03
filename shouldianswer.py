@@ -13,12 +13,11 @@ if len(sys.argv) > 1:
 else:
     print (" [i] using current folder to search and fix DDS files...")
 
-
 # swy: here's the real meat
 def parse_data_slice(needed_magic, file_path):
     with open(file_path, 'rb+') as f:
         magic = struct.unpack('4s', f.read(4))[0]
-        print(magic)
+        print(" [>] opening %s [%s]" % (file_path, magic))
         if not magic == needed_magic:
             return None
         #f.seek(0x54)
@@ -41,8 +40,6 @@ data = []
 
 # swy: aggregate the bundled application data, each number is a regional prefix
 for file_path in sda_glob:
-    print(" [>] opening %s" % file_path)
-
     cur = parse_data_slice('MTZF', file_path)
     if cur:
         data += cur 
