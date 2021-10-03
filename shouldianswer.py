@@ -19,9 +19,9 @@ def parse_data_slice(needed_magic, file_path):
     with open(file_path, 'rb+') as f:
         magic = struct.unpack('4s', f.read(4))[0]
 
-        print(" [>] opening %s [%s]" % (file_path, magic))
+        print(" [>] opening %s [%s] " % (file_path, magic), needed_magic)
 
-        if not magic == needed_magic:
+        if not magic.decode('ascii') == str(needed_magic):
             return None
 
         print(" [&] magic value matches")
