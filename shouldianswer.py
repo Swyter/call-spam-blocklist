@@ -1,3 +1,4 @@
+#!/bin/python3
 import io
 import struct
 import os
@@ -90,7 +91,7 @@ def parse_data_slice(needed_magic, file_path, global_data):
         for i in range(0, removed_item_count):
             tlf = struct.unpack('<Q', f.read(8))[0];
             #print(i, tlf)
-            #global_data.pop(tlf, None)
+            global_data.pop(tlf, None)
         
 
 # swy: aggregate the bundled application data, each number is a regional prefix
