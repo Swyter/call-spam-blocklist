@@ -6,6 +6,7 @@ import sys
 
 sda_glob = []
 sda_folder = "."
+sda_target_file = "blocklist_b.txt"
 
 if len(sys.argv) > 1:
     sda_folder = sys.argv[1]
@@ -31,8 +32,7 @@ except: # swy: python 2 does not include pathlib by default, so fallback to this
 data = {}
 
 # swy: here's the real meat
-def parse_data_slice(needed_magic, file_path):
-    ret_data = {}
+def parse_data_slice(needed_magic, file_path, global_data):
     with open(file_path, 'rb+') as f:
         magic = struct.unpack('4s', f.read(4))[0]
 
@@ -78,7 +78,7 @@ def parse_data_slice(needed_magic, file_path):
             ]
             
             #print(tlf, positive, negative, neutral, category, category_tags[category])
-            ret_data[tlf] = (positive, negative, neutral, category, category_tags[category])
+            global_data[tlf] = (positive, negative, neutral, category, category_tags[category])
 
         cp = struct.unpack('2s', f.read(2))[0]; print(cp)
         if not cp.decode('ascii') == 'CP':
@@ -90,25 +90,21 @@ def parse_data_slice(needed_magic, file_path):
         for i in range(0, removed_item_count):
             tlf = struct.unpack('<Q', f.read(8))[0];
             #print(i, tlf)
-            ret_data.pop(tlf, None)
-        #print("ret_data", ret_data)
-        return ret_data
+            #global_data.pop(tlf, None)
         
 
 # swy: aggregate the bundled application data, each number is a regional prefix
 for file_path in sda_glob:
-    cur = parse_data_slice('MTZF', file_path); # print(cur)
-    if cur:
-        data.update(cur) 
-
+    parse_data_slice('MTZF', file_path, data); # print(cur)
     #break
 
 # swy: apply the downloaded update; hopefully the data will be fresher this way
-data_update = parse_data_slice('MTZD', "data_slice_downloaded_update.bin")
+parse_data_slice('MTZD', "data_slice_downloaded_update.bin", data)
 
-data.update(data_update)
+
 # swy: dump the result
 
 #print(data)
 
-print("\n".join(["+" + str(elem) for i, elem in enumerate(data)]))
+with open(sda_target_file, 'w+') as f:
+    f.write("\n".join(["+" + str(elem) for i, elem in enumerate(data)]))
