@@ -1,0 +1,19 @@
+//------------------------------------------------
+//--- 010 Editor v12.0 Binary Template
+//
+//      File: 
+//   Authors: Swyer
+//   Version: 
+//   Purpose: ShouldIAnswer DataSlice
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+
+char magic[5]; //MTZD
+uint a,b;
+ushort c;
+uint d;
+char end[4];  //MTZEND
