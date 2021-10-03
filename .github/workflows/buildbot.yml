@@ -28,8 +28,8 @@ jobs:
       id: pack
       run: |
         git clone -b blocklist "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" blocklist_repo && cd blocklist_repo
-        
-        export PATH="${CD}/../:${PATH}"
+
+        export PATH="./../:${PATH}"
         bash .generate_call_blocklist.sh
 
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
