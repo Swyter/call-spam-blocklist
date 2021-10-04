@@ -60,7 +60,7 @@ def parse_data_slice(needed_magic, file_path, global_data):
             negative = struct.unpack('<B', f.read(1))[0];
             neutral  = struct.unpack('<B', f.read(1))[0];
             unk_zero_padding_maybe = struct.unpack('<B', f.read(1))[0];
-            category = struct.unpack('<B', f.read(1))[0]; category = 50
+            category = struct.unpack('<B', f.read(1))[0];
 
             # swy: grabbed from the string table, can be treated like some kind of enum;
             #      careful about unimplemented values/indexes that cause overflows.
