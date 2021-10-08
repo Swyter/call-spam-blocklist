@@ -7,7 +7,7 @@ import sys
 
 sda_glob = []
 sda_folder = "."
-sda_target_file = "blocklist_b.txt"
+sda_target_file = "blocklist_b_unsorted.txt"
 
 if len(sys.argv) > 1:
     sda_folder = sys.argv[1]
