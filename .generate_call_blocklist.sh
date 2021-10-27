@@ -6,8 +6,8 @@ curl -LOJ 'http://download.shouldianswer.net/download/shouldianswer_obsolete.apk
 curl --compressed -o data_slice_downloaded_update.bin.gz 'https://srv1.shouldianswer.net/srv2/get-database2?v=6&appver=11014&dbver=1381' && gunzip --force data_slice_downloaded_update.bin.gz
 
 # swy: grab the folder that holds the script, not the current directory: https://stackoverflow.com/a/246128/674685
-DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-chmod +x "${DIR}/shouldianswer.py"; ${DIR}/shouldianswer.py
+chmod +x "${SCRIPT_DIR}/shouldianswer.py"; ${SCRIPT_DIR}/shouldianswer.py
 sort blocklist_b_unsorted.txt > blocklist_b.txt
 echo end--
